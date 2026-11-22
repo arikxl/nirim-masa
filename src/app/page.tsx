@@ -3,6 +3,8 @@ import { isClerkConfigured } from "@/lib/clerk-config";
 import { isConvexConfigured } from "@/lib/convex-config";
 import { Navbar } from "@/components/Navbar";
 import { ClerkAuthSection } from "@/components/ClerkAuthSection";
+import { AdminUsersTable } from "@/components/AdminUsersTable";
+import { TripsAndRostersSection } from "@/components/TripsAndRostersSection";
 import {
   Calendar,
   Compass,
@@ -125,6 +127,18 @@ export default function HomePage() {
             </div>
           </div>
         </section>
+
+        {/* Admin-only Users Table (visible only when signed-in user has role === "admin") */}
+        <AdminUsersTable
+          isConfigured={configured}
+          isConvexReady={convexReady}
+        />
+
+        {/* Trips Table, Student Trips List & Teacher Students List */}
+        <TripsAndRostersSection
+          isConfigured={configured}
+          isConvexReady={convexReady}
+        />
 
         {/* Responsive Subgrid Features Section */}
         <section

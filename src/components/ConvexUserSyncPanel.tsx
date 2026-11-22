@@ -8,12 +8,9 @@ import type { UserRole } from "../../convex/schema";
 import { ROLE_LABELS } from "@/lib/convex-config";
 import { Check, Database, Loader2, UserCog } from "lucide-react";
 
-const ALL_ROLES: UserRole[] = ["student", "teacher", "admin", "observer"];
-
 export function ConvexUserSyncPanel() {
   const { user, isLoaded } = useUser();
   const syncUser = useMutation(api.users.syncUser);
-  const updateUserRole = useMutation(api.users.updateUserRole);
 
   const convexUser = useQuery(
     api.users.getUserByClerkId,
@@ -21,7 +18,6 @@ export function ConvexUserSyncPanel() {
   );
 
   const [isSyncing, setIsSyncing] = useState(false);
-  const [isUpdatingRole, setIsUpdatingRole] = useState(false);
   const [syncError, setSyncError] = useState<string | null>(null);
 
   useEffect(() => {
@@ -78,19 +74,6 @@ export function ConvexUserSyncPanel() {
   const currentRole: UserRole = convexUser?.role ?? "student";
   const roleInfo = ROLE_LABELS[currentRole];
 
-  const handleRoleChange = async (newRole: UserRole) => {
-    if (!user || newRole === currentRole) return;
-    setIsUpdatingRole(true);
-    try {
-      await updateUserRole({
-        clerkId: user.id,
-        role: newRole,
-      });
-    } finally {
-      setIsUpdatingRole(false);
-    }
-  };
-
   return (
     <div className="w-full rounded-2xl bg-slate-50 border border-slate-200/90 p-4 flex flex-col gap-3 text-start">
       <div className="flex items-center justify-between gap-2">
@@ -131,33 +114,6 @@ export function ConvexUserSyncPanel() {
           <UserCog className="w-3.5 h-3.5" />
           <span>{roleInfo.label}</span>
         </span>
-      </div>
-
-      {/* בורר דרגות לעדכון מהיר ב-Convex */}
-      <div className="pt-2 border-t border-slate-200/80 flex flex-col gap-2">
-        <span className="text-[11px] font-medium text-slate-500">
-          שינוי דרגה ב-Convex (תלמיד / מורה / אדמין / משקיף):
-        </span>
-        <div className="grid grid-cols-4 gap-1.5">
-          {ALL_ROLES.map((roleKey) => {
-            const active = currentRole === roleKey;
-            return (
-              <button
-                key={roleKey}
-                type="button"
-                disabled={isUpdatingRole || !convexUser}
-                onClick={() => handleRoleChange(roleKey)}
-                className={`py-1.5 px-2 rounded-xl text-xs font-semibold border transition-all cursor-pointer ${
-                  active
-                    ? "bg-brand-700 text-white border-brand-700 shadow-xs"
-                    : "bg-white text-slate-700 border-slate-200 hover:border-brand-300 hover:bg-brand-50/40"
-                } disabled:opacity-50 disabled:cursor-not-allowed`}
-              >
-                {ROLE_LABELS[roleKey].label}
-              </button>
-            );
-          })}
-        </div>
       </div>
     </div>
   );

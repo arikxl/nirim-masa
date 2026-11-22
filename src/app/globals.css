@@ -150,3 +150,135 @@ body {
   opacity: 0.65;
   cursor: not-allowed;
 }
+
+/* Responsive Admin Users Table (per modern-web-guidance responsive-table) */
+.admin-table-wrapper {
+  overflow: auto;
+  max-inline-size: 100%;
+  max-block-size: min(540px, 80dvh);
+  container-type: inline-size;
+  border-radius: 1.25rem;
+  border: 1px solid var(--surface-border);
+  background-color: #ffffff;
+  box-shadow: 0 8px 24px -6px rgba(15, 23, 42, 0.06);
+}
+
+.admin-users-table {
+  inline-size: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  text-align: start;
+  --label-2: "אימייל";
+  --label-3: "דרגה";
+  --label-4: "שינוי דרגה";
+  --label-5: "כניסה אחרונה";
+}
+
+.admin-users-table thead {
+  position: sticky;
+  inset-block-start: 0;
+  z-index: 2;
+  background-color: #f8fafc;
+}
+
+.admin-users-table thead th {
+  padding-block: 0.875rem;
+  padding-inline: 1.25rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #475569;
+  border-block-end: 1px solid #e2e8f0;
+  white-space: nowrap;
+}
+
+.admin-users-table tbody tr:not(:last-child) th,
+.admin-users-table tbody tr:not(:last-child) td {
+  border-block-end: 1px solid #f1f5f9;
+}
+
+.admin-users-table tbody th {
+  position: sticky;
+  inset-inline-start: 0;
+  z-index: 1;
+  background-color: #ffffff;
+  padding-block: 1rem;
+  padding-inline: 1.25rem;
+  font-weight: 600;
+  color: #0f172a;
+}
+
+.admin-users-table tbody td {
+  padding-block: 1rem;
+  padding-inline: 1.25rem;
+  font-size: 0.875rem;
+  color: #334155;
+  vertical-align: middle;
+}
+
+@container (width < 640px) {
+  .admin-users-table,
+  .admin-users-table thead,
+  .admin-users-table tbody,
+  .admin-users-table tr,
+  .admin-users-table th,
+  .admin-users-table td {
+    display: block;
+  }
+
+  .admin-users-table thead {
+    display: none;
+  }
+
+  .admin-users-table tbody tr {
+    margin: 0.875rem;
+    border: 1px solid #e2e8f0;
+    border-radius: 1rem;
+    overflow: clip;
+    background-color: #ffffff;
+  }
+
+  .admin-users-table tbody th {
+    position: sticky;
+    inset-block-start: 0;
+    z-index: 2;
+    background-color: #f8fafc;
+    border-block-end: 1px solid #e2e8f0;
+  }
+
+  .admin-users-table tbody td {
+    display: flex;
+    align-items: safe center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    padding-block: 0.75rem;
+    padding-inline: 1rem;
+  }
+
+  .admin-users-table tbody td:nth-child(2)::before {
+    content: var(--label-2) ": ";
+    font-weight: 600;
+    font-size: 0.75rem;
+    color: #64748b;
+  }
+
+  .admin-users-table tbody td:nth-child(3)::before {
+    content: var(--label-3) ": ";
+    font-weight: 600;
+    font-size: 0.75rem;
+    color: #64748b;
+  }
+
+  .admin-users-table tbody td:nth-child(4)::before {
+    content: var(--label-4) ": ";
+    font-weight: 600;
+    font-size: 0.75rem;
+    color: #64748b;
+  }
+
+  .admin-users-table tbody td:nth-child(5)::before {
+    content: var(--label-5) ": ";
+    font-weight: 600;
+    font-size: 0.75rem;
+    color: #64748b;
+  }
+}
