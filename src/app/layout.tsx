@@ -16,7 +16,12 @@ const heebo = Heebo({
 export const metadata: Metadata = {
   title: "מסע נירים | פורטל המשתתפים והצוות",
   description:
-    "ברוכים הבאים לאתר מסע נירים – מערכת רספונסיבית לחניכים, מדריכים ובוגרים עם כניסה מהירה ומאובטחת דרך Google, Clerk ו-Convex.",
+    "ברוכים הבאים לאתר מסע נירים",
+  icons: {
+    icon: "/icon.png",
+    shortcut: "/icon.png",
+    apple: "/icon.png",
+  },
 };
 
 export default function RootLayout({
